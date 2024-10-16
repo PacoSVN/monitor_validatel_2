@@ -1,0 +1,19 @@
+{
+  "crm": {
+      "ip": "10.25.1.231",
+      "usuario": "bswcrm_user",
+      "contrasena": "Entrada2019$",
+      "baseDatos": "siogen01",
+      "elegida": ""
+  },
+  "marcador": {
+      "ip": "10.25.1.219",
+      "usuario": "bswcc_user",
+      "contrasena": "Entrada2019$",
+      "baseDatos": "asteriskcdrdb",
+      "elegida": ""
+  }
+
+}
+
+
