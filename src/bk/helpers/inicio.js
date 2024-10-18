@@ -828,14 +828,15 @@ module.exports.indicadoresAgentes = async(campana, cola, ID, sts, stsres, canalC
         return indAgentes;
 }
 //llamadas referencias
-module.exports.indicadoresReferecnias = async(campana,cola, ID, sts, stsres,canalCon, canal_inicial, idagnt, nombre) => {
+module.exports.indicadoresReferencias = async(campana,cola, ID, sts, stsres,canalCon, canal_inicial, idagnt, nombre) => {
         const indicadores = {};
         const indConfirmadas = await pool.query(querys.confirmadas_);
         indicadores.confirmadas = indConfirmadas[0].llamadas ;
         const indRechazadas = await pool.query(querys.rechazadas_);
-                                                      
         indicadores.rechazadas = indRechazadas[0].llamadas ;
         indicadores.total = indicadores.rechazadas + indicadores.confirmadas;
-        indicadores.espera =0;
+        
+        const indEspera = await pool.query(querys.enespera_,campana);
+        indicadores.espera = indEspera[0].llamadas;
         return indicadores;
 }

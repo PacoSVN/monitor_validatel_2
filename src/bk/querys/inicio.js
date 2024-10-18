@@ -669,6 +669,7 @@ FROM inmc.imc
 group by agente asc  
 )BASE3`;
 
+
 module.exports.indicadoresTotales = `SELECT sum(total) tot, sum(operacion) op, sum(activos) ac, sum(disponibles) dis, sum(solrec) sol, sum(solaut) solA, sum(receso) res, sum(personales) per, sum(alimentos) ali,
 sum(retro) retro, sum(capacitacion) cptn, sum(comision) com, sum(mayor) mayor
 FROM (SELECT*FROM(SELECT marcador, sum(total) total, sum(operacion) operacion, sum(activos) activos, sum(disponibles) disponibles, sum(solrec) solrec, sum(solaut) solaut, 
@@ -777,7 +778,7 @@ ifnull(sum((SELECT COUNT(*) as act FROM bstntrn.btagenteoutbound as base WHERE b
 ifnull(sum((SELECT COUNT(*) as act FROM bstntrn.btagenteoutbound as base WHERE base.btAgenteOutId = t3.id and t3.stsrec = 'RES' AND t3.permiso = 'CAPACITACION')),0) as capacitacion,
 ifnull(sum((SELECT COUNT(*) as act FROM bstntrn.btagenteoutbound as base WHERE base.btAgenteOutId = t3.id and t3.stsrec = 'RES' AND t3.permiso = 'COMISION')),0) as comision,
 ifnull(sum((SELECT COUNT(*) as act FROM bstntrn.btagenteoutbound as base WHERE base.btAgenteOutId = t3.id and t3.sts = 'EN LLAMADA' AND t3.segundos > 510)),0) as mayor
-FROM(btAgenteOutNombre nom,btAgenteCmpId cmp,btAgenteOutExt ext,btagenteOutStsExt sts,
+FROM(SELECT 'O' area, btAgenteOutId id,btAgenteOutNombre nom,btAgenteCmpId cmp,btAgenteOutExt ext,btagenteOutStsExt sts,
 ifnull(z.BTESTAGNTT, 'DIS') stsrec, 
 ifnull(date_format(TIMEDIFF(now(),BTESTAGNTSALRECESO),'%H:%i:%s'),'00:00:00') duracionreceso, btagenteOutTelefonoCliente Telefono,BTESTAGNTPERMISOID permisoid,BTESTAGNTMOTIVO permiso, 
 DATE_FORMAT(now(), '%d/%m/%Y') fecha, CASE WHEN btagenteoutStsExt = 'EN LLAMADA' THEN DATE_FORMAT(btagenteouthorallam, '%H:%i:%s') ELSE '00:00:00' END hora, 
@@ -935,3 +936,7 @@ SELECT count(*) llamadas FROM validatelfnct.referencia
 WHERE  estatus='CONFIRMADA' AND 
 fecha >= curdate() AND fecha <= DATE_ADD(curdate(), INTERVAL 1 DAY)
 `;
+
+module.exports.enespera_= ` select count(*) llamadas
+FROM bstntrn.btcontacto con 
+where   btContactoCmpId like concat('%',?,'%')  and  btContactoSts = 'PENDIENTE' and cast(btcontactofecha as date) = curdate()`

@@ -356,7 +356,7 @@ ipcMain.on('getindicadoresAgentes', async(event, campana, cola, ID, sts, stsres,
 // indicadores de referencia 
 ipcMain.on('getConsultarIndicadoresReferencia', async(event, campana, cola, ID, sts, stsres,canalCon, canal_inicial, idagnt, nombre) => {
     
-    const consultarIndicadores = await helper.indicadoresReferecnias(campana, cola, ID, sts, stsres,canalCon, canal_inicial, idagnt, nombre);
+    const consultarIndicadores = await helper.indicadoresReferencias(campana, cola, ID, sts, stsres,canalCon, canal_inicial, idagnt, nombre);
     event.reply('getConsultarIndicadoresReferenciaResult', consultarIndicadores);
 });
 

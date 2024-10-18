@@ -159,7 +159,7 @@ ipcRenderer.on('consultarSupervisoresResult', (event, datos) => {
             $("#supervisorComboid").append("<option value='" + datos.all[i].ID + "'>" + datos.all[i].DSC + "</option>")
         }
         arr_pref = datos.preferencias;
-        pintarPreferencias(datos.preferencias);
+       _pintarPreferencias(datos.preferencias);
             
     } else {
         $("#supervisorComboid").append("<option value='NO APLICA'>NO APLICA</option>")
@@ -4153,18 +4153,94 @@ function bloquearCanal(canal) {
         $('#listab'+canal).css('display','block');
         $('.nav-link').removeClass('active');
       
-        ipcRenderer.send('insertarPreferencia', supervisor_firma, canal)
-        indicadoresMarcadores('');
+        //ipcRenderer.send('insertarPreferencia', supervisor_firma, canal)
+        
+      //xx  indicadoresMarcadores('');
     }
+    $('#divindicadores').css('display','none');
 }
 
 ipcRenderer.on('insertarPreferenciaResult', async(event, datos) => {
     arr_pref = datos.preferencias;
-    pintarPreferencias(datos.preferencias)
+    _pintarPreferencias(datos.preferencias)
 });
+function _pintarPreferencias(preferencias)
+{
+        $('#indicador1').css('display','none')
+        $('#indicador2').css('display','none')
+        $('#indicador145').css('display','none');
+        $('#indicador142').css('display','none');
+        $('#indicador239').css('display','none');
+        $('#indicador236').css('display','none');
+        $('#indicador237').css('display','none');
+        $('#indicador238').css('display','none');
+        $('#indicador216').css('display','none');
+        $('#indicador130').css('display','none');
+        $('#indicador231').css('display','none');
+        $('#indicador149').css('display','none');
+
+        $('#indicadorM230').css('display','none');
+        $('#indicadorM234').css('display','none');
+        $('#indicadorM235').css('display','none');
+        $('#indicadorM239').css('display','none');
+        $('#indicadorM236').css('display','none');
+        $('#indicadorM237').css('display','none');
+        $('#indicadorM238').css('display','none');
+        $('#indicadorM216').css('display','none');
+        $('#indicadorM130').css('display','none');
+        $('#indicadorM231').css('display','none');
+        $('#indicadorM149').css('display','none');
+        
+        $('#indicador3').css('display','none')
+        $('#indicador4').css('display','none')
+        $('#indicadorF').css('display','none')
+        $('#indicadorW').css('display','none')
+        $('#indicadorT').css('display','none')
+        $('#indicadorM').css('display','none')
+        $('#indicadorC').css('display','none')
+        $('#indicadorS').css('display','none')
+        $('#1Check').prop('checked',false);
+        $('#2Check').prop('checked',false);
+        $('#3Check').prop('checked',false);
+        $('#4Check').prop('checked',false);
+        $('#FCheck').prop('checked',false);
+        $('#WCheck').prop('checked',false);
+        $('#TCheck').prop('checked',false);
+        $('#MCheck').prop('checked',false);
+        $('#CCheck').prop('checked',false);
+        $('#SCheck').prop('checked',false);
+        $('#listab2').css('display','none');
+        $('#listab3').css('display','none');
+        $('#listab4').css('display','none');
+        $('#listabF').css('display','none');
+        $('#listabW').css('display','none');
+        $('#listabT').css('display','none');
+        $('#listabM').css('display','none');
+        $('#listabC').css('display','none');
+        $('#listabS').css('display','none');
+
+        $('#indicador1').css('display','block');
+       // $('#indicador3').css('display','block');
+        
+            $('#1Check').prop('checked',true);
+            $('#3Check').prop('checked',true);
+            
+            //$('#listab1').css('display','block');
+            //$('#listab1').css('width','50%');
+            
+            
+            $('#listab3').css('display','block');
+            $('#listab3').css('width','100%');
+
+       // indicadoresMarcadores('')
+  canalO = true;
+    obdA = 1;
+return;
+}
 
 function pintarPreferencias(preferencias)
 {
+    
     if (preferencias.length == 0) {
         $('#indicador1').css('display','block')
         $('#indicador2').css('display','block')
@@ -4303,7 +4379,7 @@ function pintarPreferencias(preferencias)
             $('#listab'+ preferencias[i].dsc).css('width',tamaño+'%');
             
         }
-        indicadoresMarcadores('')
+       //xx indicadoresMarcadores('')
         // var arrDocumentos = $('[name="checkInd"]:checked').map(function(){
         //     return this.value;
         //   }).get();
@@ -5135,7 +5211,7 @@ function llenarGridModalIE(datos) {
         "pagingType": "simple",
         "searching": false,
         "destroy": true,
-        //"responsive": {details: true},
+        "responsive": {details: true},
         "responsive": true,
         "select": true,
         "paging": true,
