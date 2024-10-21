@@ -140,10 +140,10 @@ ipcRenderer.on('consultarSupervisoresResult', (event, datos) => {
             //arr_multi = [];
             //arr_ind = [];
             consultarIndicadoresReferencia('', '', datos.all[0].ID, '', '', '', '')
-            consultarAgntinb('', '', datos.all[0].ID, '', '', '', '')
+         //   consultarAgntinb('', '', datos.all[0].ID, '', '', '', '')
             consultarAgntObd('', '', datos.all[0].ID, '', '', '', '')
-            consultarAgntC('', '', datos.all[0].ID, '', '', '', '')
-            consultarAgntM('', '', datos.all[0].ID, '', '', '', '')
+          //  consultarAgntC('', '', datos.all[0].ID, '', '', '', '')
+         //   consultarAgntM('', '', datos.all[0].ID, '', '', '', '')
             llenarIndicadores('', '', datos.all[0].ID, '', '', '', '');
             //consultasesion()
         }
@@ -1301,9 +1301,9 @@ function consultarAgnt() {
     setconsulta = setInterval(function() {
         consultarIndicadoresReferencia(campana, col_espera, supervisor, estatus, estatusres, $('#idAgntfil').val(), $('#nombreAgntb').val())
         //ipcRenderer.send('getConsultarMetricas', col_espera)
-        consultarAgntinb(campana, col_espera, supervisor, estatus, estatusres, $('#idAgntfil').val(), $('#nombreAgntb').val())
+       // consultarAgntinb(campana, col_espera, supervisor, estatus, estatusres, $('#idAgntfil').val(), $('#nombreAgntb').val())
         consultarAgntObd(campana, col_espera, supervisor, estatus, estatusres, $('#idAgntfil').val(), $('#nombreAgntb').val())
-        consultarAgntM(campana, col_espera, supervisor, estatus, estatusres, $('#idAgntfil').val(), $('#nombreAgntb').val())
+      //   consultarAgntM(campana, col_espera, supervisor, estatus, estatusres, $('#idAgntfil').val(), $('#nombreAgntb').val())
         llenarIndicadores(campana, col_espera, supervisor, estatus, estatusres, $('#idAgntfil').val(), $('#nombreAgntb').val());
         //consultasesion();
     }, 5000);
