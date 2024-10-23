@@ -5740,6 +5740,19 @@ ipcRenderer.on('getindicadoresAgentesResult',  async(event, dato) => {
   {
       ipcRenderer.send('getConsultarIndicadoresReferencia', campana, cola, supervisor, sts, stsrec, canalCon, canal_inicial, idagnt, nombre)
   } 
+
+  function muestra(){
+    $('#divCriterios').css('display','block');
+    $('#btnMuestra').css('display','none');
+    $('#btnOcultar').css('display','block');
+    
+}
+function oculta(){
+    $('#divCriterios').css('display','none');
+    $('#btnMuestra').css('display','block');
+    $('#btnOcultar').css('display','none');
+   
+}
   //llena el select #comboPerfil con los perfiles que le corresponden al usuario
 ipcRenderer.on('getConsultarIndicadoresReferenciaResult', (event, datos) => {
     //$("#comboPerfil").html("");

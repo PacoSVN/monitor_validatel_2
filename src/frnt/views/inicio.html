@@ -29,8 +29,15 @@
                 </div>
                 <button onclick="modulosToggle()" type="button" class="btn btn-secondary float-rigth mx-1 ml-2"><span class="icon-menu"></span></button>
                 <button onclick="cerrarVentana()" type="button" class="btn btn-danger float-rigth mx-1"><span class="icon-home"></span></button>
+               
                 <button onclick="consultarAgnt()" id="btnConsultas" type="button" class="btn btn-success float-rigth mx-1"><span class="icon-search"></span></button>
-                <button class="btn btn-secondary" id="btnExcel" onclick="exportarExcel()" style="color: white; float: right;" title="Exportar Excel"><span class="icon-file-excel"></span></button>
+               
+                <button class="btn btn-secondary float-rigth mx-1" id="btnExcel" onclick="exportarExcel()" style="color: white; " title="Exportar Excel"><span class="icon-file-excel"></span></button>
+
+                <button class="btn btn-secondary float-rigth mx-1" id="btnOcultar" onclick="oculta()" style="color: white; " title="Oculta filtros"><span class="icon-menu4"></span></button>
+                
+                <button class="btn btn-secondary float-rigth mx-1" id="btnMuestra" onclick="muestra()" style="color: white; display:none" title="Muestra filtros"><span class="icon-menu3"></span></button>
+
             </div>
             <div class="float-rigth text-white">
                 <div id="circulo_estatus" class="circulo_estatus float-left"></div>
@@ -60,7 +67,7 @@
         <div class="col d-none  float-left bg-light h-100 px-0 position-relative" id="divOpen">
         </div>
         <div class="col float-left  h-100 px-0 position-relative divbody">
-            <div class="card mx-0" style="padding-top: 15px;">
+            <div class="card mx-0" id="divCriterios" style="padding-top: 5px; border-radius: 0px;">
                 <div class="card-container">
                     <div class="row">
                         <div class="col-md-9">
@@ -1450,12 +1457,11 @@
             <div class="row">
              <div class="col-md-10">
                 <div class="row">
-                <div class="col-sm">
         
-
-                <div class="indicadorVerde table-responsive" id="indicador_espera">
-                    <br>
-                    <div data-type="timetable" data-id="85503" id="wgt-85503" class="tap-sport-tools" style="width:100%; height:auto;">
+                <div class="col-sm">
+                        <div class="indicadorVerde table-responsive" id="indicador_espera">
+                    
+                    <div  class="tap-sport-tools" style="width:100%; height:auto;">
                      <ul class="list-group" id="Indicadores">
                       <li class="list-group-item d-flex col-12 justify-content-between" style="padding: .5rem 1.25rem" id="IndicadoresCol">
 
@@ -1471,8 +1477,7 @@
                </div>
                 <div class="col-sm">
                 <div class="indicadorAzul table-responsive" id="indicador_confirmadas">
-                    <br>
-                    <div data-type="timetable" data-id="85503" id="wgt-85503" class="tap-sport-tools" style="width:100%; height:auto;">
+                    <div  class="tap-sport-tools" style="width:100%; height:auto;">
                     <ul class="list-group" id="Indicadores">
                     <li class="list-group-item d-flex col-12 justify-content-between" style="padding: .5rem 1.25rem" id="IndicadoresCol">
 
@@ -1488,8 +1493,7 @@
                </div>
                <div class="col-sm">
                 <div class="indicadorRosa table-responsive" id="indicador_rechazadas">
-                    <br>
-                    <div data-type="timetable" data-id="85503" id="wgt-85503" class="tap-sport-tools" style="width:100%; height:auto;">
+                    <div class="tap-sport-tools" style="width:100%; height:auto;">
                     <ul class="list-group" id="Indicadores">
                     <li class="list-group-item d-flex col-12 justify-content-between" style="padding: .5rem 1.25rem" id="IndicadoresCol">
 
@@ -1505,8 +1509,7 @@
                 </div>
                 <div class="col-sm">
                 <div class="indicadorGris table-responsive" id="indicador_total">
-                    <br>
-                    <div data-type="timetable" data-id="85503" id="wgt-85503" class="tap-sport-tools" style="width:100%; height:auto;">
+                    <div class="tap-sport-tools" style="width:100%; height:auto;">
                     <ul class="list-group" id="Indicadores">
                     <li class="list-group-item d-flex col-12 justify-content-between" style="padding: .5rem 1.25rem" id="IndicadoresCol">
 
@@ -1528,7 +1531,7 @@
                 <div class="row">
                 <div class="col-12">   
                 <div  id="divgrid" >
-                    <div class="card" style="padding: 0px;" id="cardgrid">
+                    <div class="card" style="padding: 0px; border-radius: 0px;" id="cardgrid">
                         <div class="card-container">
                             <ul class="nav nav-tabs" id="myTab" role="tablist">
                                 <!-- 
