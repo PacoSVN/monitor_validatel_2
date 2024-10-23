@@ -360,3 +360,8 @@ ipcMain.on('getConsultarIndicadoresReferencia', async(event, campana, cola, ID, 
     event.reply('getConsultarIndicadoresReferenciaResult', consultarIndicadores);
 });
 
+//Consulta opción de procesos
+ipcMain.on('getOpcionesDeProceso', async(event,nombre) => {
+    const opcionesDeProcesos = await helper.getOpcionesDeProceso(nombre)
+    event.reply('getOpcionesDeProcesoResult', opcionesDeProcesos)
+});

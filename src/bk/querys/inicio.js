@@ -22,7 +22,11 @@ and btAgenteInbId like concat('%',?,'%') and btAgenteInbNombre like concat('%',?
 module.exports.consultarAgentesOut = `SELECT 'O' area, btAgenteOutId id,btAgenteOutNombre nom,btAgenteCmpId cmp,btAgenteOutExt ext,btagenteOutStsExt sts,
 ifnull(z.BTESTAGNTT, 'DIS') stsrec, 
 ifnull(date_format(TIMEDIFF(now(),BTESTAGNTSALRECESO),'%H:%i:%s'),'00:00:00') duracionreceso, btagenteOutTelefonoCliente Telefono,BTESTAGNTPERMISOID permisoid,BTESTAGNTMOTIVO permiso, 
-DATE_FORMAT(now(), '%d/%m/%Y') fecha, CASE WHEN btagenteoutStsExt = 'EN LLAMADA' THEN  ifnull(SEC_TO_TIME(TIMESTAMPDIFF(second,btagenteouthorallam,now())), '00:00:00') 
+DATE_FORMAT(now(), '%d/%m/%Y') fecha, 
+CASE WHEN btagenteoutStsExt = 'EN LLAMADA' THEN  TIMESTAMPDIFF(second,btagenteouthorallam,now()) 
+WHEN BTESTAGNTT = 'RES' THEN  TIMESTAMPDIFF(second,BTESTAGNTSALRECESO,now()) ELSE '0' END segundos,
+
+CASE WHEN btagenteoutStsExt = 'EN LLAMADA' THEN  ifnull(SEC_TO_TIME(TIMESTAMPDIFF(second,btagenteouthorallam,now())), '00:00:00') 
 WHEN BTESTAGNTT = 'RES' THEN  ifnull(SEC_TO_TIME(TIMESTAMPDIFF(second,BTESTAGNTSALRECESO,now())), '00:00:00') ELSE '00:00:00' END duracion, 
 CASE WHEN btagenteoutStsExt = 'EN LLAMADA' THEN DATE_FORMAT(btagenteouthorallam, '%H:%i:%s') 
 WHEN BTESTAGNTT = 'RES' THEN DATE_FORMAT(BTESTAGNTSALRECESO, '%H:%i:%s') ELSE '00:00:00' END hora, CASE WHEN btagenteoutStsExt = 'EN LLAMADA' THEN ifnull(C.btContactoNombreCliente,'') else '' END nombreCliente,
@@ -511,6 +515,8 @@ WHERE aout.btAgenteOutSesion = 'S' and CNUSERBAJA='N' AND aout.btAgenteCmpId lik
 and btAgenteOutId  like concat('%',?,'%') and btAgenteOutNombre like concat('%',?,'%')) AS b ON a.id=b.id`;
 
 module.exports.ConsultarOp = `SELECT valor FROM bstntrn.spcpagtopcprc where nombre = 'urleval' and version = 'SDB-49'`;
+
+module.exports.ConsultarOpcionProceso = `SELECT valor FROM bstntrn.spcpagtopcprc where nombre = ? and version = 'SDB-10'`;
 
 module.exports.ConsultarOpRS = `SELECT valor FROM bstntrn.spcpagtopcprc where nombre = ? and version = 'SDB-56'`;
 

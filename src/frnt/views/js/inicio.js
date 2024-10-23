@@ -67,6 +67,7 @@ var canalrs;
 var monitorv = '';
 var ibdA = 0;
 var obdA = 0;
+var tiempoEnLlamada=0;
 
 //variables metricas
 var ivr = 0;
@@ -90,6 +91,12 @@ ipcRenderer.send('getAllEstatus', '')
 
 ipcRenderer.on('errorconexion', (event, data) => {
     alert("error ", data);
+})
+
+ipcRenderer.send('getOpcionesDeProceso','tiempoEnLlamada')
+ipcRenderer.on('getOpcionesDeProcesoResult', (event, data) => {
+    if(data!=undefined)
+       tiempoEnLlamada=data[0].valor;
 })
 
 function onLoad() {
@@ -1897,17 +1904,17 @@ function llenarGridOutb(datos) {
         "autoWidth": true,
         "ordering": false,
         "lengthChange": false,
-        "scrollX": false,
+        "scrollX": true,
         "scrollY": true,
-        //"lengthMenu": datos.length,
+       // "lengthMenu": datos.length,
         "columns": [
-            { "data": "area"},
+           // { "data": "area"},
             { "data": "sts", render: Estatus },
             //{ "data": "src"},
             //{ "data": "src",render: editFoto},
             { "data": "nom" },
             { "data": "stsrec", render: EstatusLlam },
-            { "data": "fecha" },
+           // { "data": "fecha" },
             { "data": "hora" },
             { "data": "duracion" },
             { "data": "Telefono" },
@@ -1919,20 +1926,20 @@ function llenarGridOutb(datos) {
             { "data": "marcador" },
         ],
         "columnDefs": [
+           // { "orderable": false, "targets": 0, "className": 'dt-body-center' },
             { "orderable": false, "targets": 0, "className": 'dt-body-center' },
-            { "orderable": false, "targets": 1, "className": 'dt-body-center' },
-            { "orderable": false, "targets": 2, "className": 'dt-body-left', "width": "250px" },
+            { "orderable": false, "targets": 1, "className": 'dt-body-left', "width": "250px" },
+            { "orderable": false, "targets": 2, "className": 'dt-body-center' },
+           // { "orderable": false, "targets": 3, "className": 'dt-body-center' },
             { "orderable": false, "targets": 3, "className": 'dt-body-center' },
             { "orderable": false, "targets": 4, "className": 'dt-body-center' },
-            { "orderable": false, "targets": 5, "className": 'dt-body-center' },
-            { "orderable": false, "targets": 6, "className": 'dt-body-center' },
+            { "orderable": false, "targets": 5, "className": 'dt-body-right' },
+            { "orderable": false, "targets": 6, "className": 'dt-body-left' },
             { "orderable": false, "targets": 7, "className": 'dt-body-right' },
             { "orderable": false, "targets": 8, "className": 'dt-body-left' },
             { "orderable": false, "targets": 9, "className": 'dt-body-right' },
             { "orderable": false, "targets": 10, "className": 'dt-body-left' },
-            { "orderable": false, "targets": 11, "className": 'dt-body-right' },
-            { "orderable": false, "targets": 12, "className": 'dt-body-left' },
-            { "orderable": false, "targets": 13, "className": 'dt-body-center' },
+            { "orderable": false, "targets": 11, "className": 'dt-body-center' },
         ],
 
         "language": {
@@ -1965,24 +1972,25 @@ function llenarGridOutb(datos) {
         },
         rowCallback: function(row, datos) {
             if (datos.sts == "DISPONIBLE" || "DIS") {
-                $($(row).find("td")[1]).css("background-color", "#269EE3");
-                $($(row).find("td")[3]).css("background-color", "#269EE3");
+                $($(row).find("td")[0]).css("background-color", "#269EE3");
+                $($(row).find("td")[2]).css("background-color", "#269EE3");
             }
             if (datos.sts == "NO CONECTADO") {
-                $($(row).find("td")[1]).css("background-color", "#269EE3");
-                $($(row).find("td")[3]).css("background-color", "#ff0303");
+                $($(row).find("td")[0]).css("background-color", "#269EE3");
+                $($(row).find("td")[2]).css("background-color", "#ff0303");
             }
             if (datos.sts == "EN LLAMADA") {
-                $($(row).find("td")[1]).css("background-color", "#5ec375");
-                $($(row).find("td")[3]).css("background-color", "#5ec375");
+                $($(row).find("td")[0]).css("background-color", "#5ec375");
+                $($(row).find("td")[2]).css("background-color", "#5ec375");
             }
              if (datos.sts == "") {
-                $($(row).find("td")[1]).css("background-color", "#43B51F");
-                $($(row).find("td")[3]).css("background-color", "#43B51F");
+                $($(row).find("td")[0]).css("background-color", "#43B51F");
+                $($(row).find("td")[2]).css("background-color", "#43B51F");
             }
-
-            if (parseInt(datos.segundos) > 510) {
-                $($(row).find("td")[3]).css("background-color", "#ff0303");
+            // xxx  
+            if (parseInt(datos.segundos) > tiempoEnLlamada) {
+                $($(row).find("td")[4]).css("background-color", "#ff0303");
+                $($(row).find("td")[4]).css("color", "#FFFFFF");
             }
             else
             {
@@ -1990,11 +1998,13 @@ function llenarGridOutb(datos) {
                 if(parseInt(datos.segundos) < 0)
                 {
                     var durllam = parseInt(datos.segundos)*-1
-                    if (durllam > 510) {
-                        $($(row).find("td")[3]).css("background-color", "#ff0303");
+                    if (durllam > tiempoEnLlamada) {
+                        $($(row).find("td")[4]).css("background-color", "#ff0303");
+                        $($(row).find("td")[4]).css("color", "#FFFFFF");
                     }
                 }
             }
+            /*
             if(datos.area == "O")
             {
                 $($(row).find("td")[0]).css("background-color", "black");
@@ -2029,14 +2039,14 @@ function llenarGridOutb(datos) {
             {
                 $($(row).find("td")[0]).css("background-color", "#eabe3f");
                 $($(row).find("td")[0]).css("color", "white");
-            }
+            }*/
 
             if (datos.stsrec == "SOL") {
-                $($(row).find("td")[1]).css("background-color", "#B046B8");
+                $($(row).find("td")[0]).css("background-color", "#B046B8");
             }  if (datos.stsrec == "SOLAUT") {
-                $($(row).find("td")[1]).css("background-color", "#4d8855");
+                $($(row).find("td")[0]).css("background-color", "#4d8855");
             }  if (datos.stsrec == "RES") {
-                $($(row).find("td")[1]).css("background-color", "#FF8000");
+                $($(row).find("td")[0]).css("background-color", "#FF8000");
             }
         }
 
@@ -5647,7 +5657,7 @@ function llenarIndicadores(campana, cola, supervisor, sts, stsrec, idagnt, nombr
 }
 
 ipcRenderer.on('getindicadoresAgentesResult',  async(event, dato) => {
-    console.log(dato);
+    //console.log(dato);
     var arregloCadena1 = [];
     var separador = ".";
     for (let i = 0; i < arrConexiones.length; i++) {

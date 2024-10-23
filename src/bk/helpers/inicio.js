@@ -698,7 +698,10 @@ module.exports.indicadoresAgnt = async(campana, cola, ID, sts, stsres, canalCon,
     return arr_indicadores;
         
 }
-
+module.exports.getOpcionesDeProceso = async(nombre)=>{
+    const opcionesProcesos = await pool.query(querys.ConsultarOpcionProceso, [nombre]);
+    return opcionesProcesos;    
+}
 module.exports.getUrl = async(datos, event) =>
 {
     var url;
@@ -834,9 +837,10 @@ module.exports.indicadoresReferencias = async(campana,cola, ID, sts, stsres,cana
         indicadores.confirmadas = indConfirmadas[0].llamadas ;
         const indRechazadas = await pool.query(querys.rechazadas_);
         indicadores.rechazadas = indRechazadas[0].llamadas ;
-        indicadores.total = indicadores.rechazadas + indicadores.confirmadas;
         
         const indEspera = await pool.query(querys.enespera_,campana);
         indicadores.espera = indEspera[0].llamadas;
+        indicadores.total = indicadores.rechazadas + indicadores.confirmadas + indicadores.espera;
+
         return indicadores;
 }

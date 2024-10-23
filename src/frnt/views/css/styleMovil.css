@@ -844,7 +844,6 @@
   background: linear-gradient(180deg, rgba(0,204,102,1) 0%, rgb(0, 0, 0) 110%); 
   margin: 0.2em; 
   width: 100%; 
-  border-radius: 5px;
 
 }
 .indicadorRosa{
@@ -852,7 +851,7 @@
     background: linear-gradient(180deg, rgba(248, 10, 109) 0%, rgb(0, 0, 0) 110%); 
   margin: 0.2em; 
   width: 100%; 
-  border-radius: 5px;
+
 
 }
 .indicadorAzul{
@@ -860,7 +859,7 @@
     background: linear-gradient(180deg, rgba(5, 144, 224) 0%, rgb(0, 0, 0) 110%); 
   margin: 0.2em; 
   width: 100%; 
-  border-radius: 5px;
+  
 
 }
 .indicadorGris{
@@ -868,6 +867,5 @@
     background: linear-gradient(180deg, rgb(99, 99, 99) 0%, rgb(0, 0, 0) 110%); 
   margin: 0.2em; 
   width: 100%; 
-  border-radius: 5px;
-
+  
 }
