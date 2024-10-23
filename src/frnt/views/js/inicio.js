@@ -1843,14 +1843,16 @@ function llenarGridOutb(datos) {
                 return "<i class='icon-smile' style='color:#fff; font-size: 30px;'></i>";
             } else if (row.stsrec == "RES") {
                 return "<i class='icon-clock' style='color:#fff; font-size: 30px;'></i>";
-            } else if (datos == "DISPONIBLE" || "DIS") {
+            }else if (datos == "ENVIANDO RESPUESTA") {
+                return "<i class='icon-notification' style='color:#fff; background-color:#666666; font-size: 30px;'></i>";
+            }else if (datos == "DISPONIBLE" || "DIS") {
                 return "<i class='icon-user-check' style='color:#fff; font-size: 30px;'></i>";
             } else if (datos == "EN LLAMADA") {
                 return "<i class='icon-phone' style='color:#fff; font-size: 30px;'></i>";
-            } else {
+            }else {
                 return "NO DISPONIBLE";
             }
-        }
+        } 
         return this.datos;
     };
 
@@ -1861,7 +1863,7 @@ function llenarGridOutb(datos) {
             } else if (row.sts == "EN LLAMADA") {
                 return "<div style='color:#fff'>" + row.sts + "</div>";
             } else if (row.sts == "RECESO") {
-                return "<div>" + row.sts + "</div>";
+                return "<div style='color:#fff'>" + row.sts + "</div>";
             }else if (row.sts == "Atendido") {
                 return "<div style='color:#fff'>" + row.sts + "</div>";
             }
@@ -1875,9 +1877,13 @@ function llenarGridOutb(datos) {
                 return "<div style='color:#fff'>" + row.sts + "</div>";
             } else if (row.sts == "NO CONECTADO") {
                 return "<div style='color:#fff'>" + row.sts + "</div>";
+            } if (row.sts == "ENVIANDO RESPUESTA") {
+                return "<div style='color:#fff; '>" + row.sts + "</div>";
             } else {
                 return "NO DISPONIBLE";
             }
+
+            
         }
         return this.datos;
     };
@@ -1987,6 +1993,10 @@ function llenarGridOutb(datos) {
                 $($(row).find("td")[0]).css("background-color", "#43B51F");
                 $($(row).find("td")[2]).css("background-color", "#43B51F");
             }
+            if (datos.sts == "ENVIANDO RESPUESTA") {
+                $($(row).find("td")[0]).css("background-color", "#666667");
+                $($(row).find("td")[2]).css("background-color", "#666667");
+            }
             // xxx  
             if (parseInt(datos.segundos) > tiempoEnLlamada) {
                 $($(row).find("td")[4]).css("background-color", "#ff0303");
@@ -2047,6 +2057,7 @@ function llenarGridOutb(datos) {
                 $($(row).find("td")[0]).css("background-color", "#4d8855");
             }  if (datos.stsrec == "RES") {
                 $($(row).find("td")[0]).css("background-color", "#FF8000");
+                $($(row).find("td")[2]).css("background-color", "#FF8000");
             }
         }
 
