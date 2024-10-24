@@ -408,13 +408,18 @@ ipcRenderer.on('getConsultarAgenteOResult', (event, datos) => {
     //console.log('Out '+datos)
     enLlamadaO = 0;
     var arr_outb = [];
+    var contador=0;
 
      for (let b = 0; b < datos.out.length; b++) {
         arr_outb.push(datos.out[b])
         arr_multi.push(datos.out[b])
         //sacamos informacion para pintar en los indicadores
-        /*if (datos.out[b].sts === "EN LLAMADA") {
-            activos++;
+        if (datos.out[b].sts === "EN LLAMADA") {
+            var durllam = parseInt(datos.out[b].segundos);
+            if (durllam >= parseInt(tiempoEnLlamada)) {
+                contador++;
+            }
+            //activos++;
         }
         /*if (datos.out[b].sts == "NO CONECTADO") {
             noConectado++;
@@ -496,6 +501,7 @@ ipcRenderer.on('getConsultarAgenteOResult', (event, datos) => {
     $("#ResCom").text(comision)*/
 
     llenarGridOutb(arr_outb);
+    $("#agDuracion").text(contador);
     //llenarGridcb(arr_cb);
 });
 
