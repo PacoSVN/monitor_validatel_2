@@ -21,7 +21,10 @@ and btAgenteInbId like concat('%',?,'%') and btAgenteInbNombre like concat('%',?
 
 module.exports.consultarAgentesOut = `SELECT 'O' area, btAgenteOutId id,btAgenteOutNombre nom,btAgenteCmpId cmp,btAgenteOutExt ext,btagenteOutStsExt sts,
 ifnull(z.BTESTAGNTT, 'DIS') stsrec, 
-ifnull(date_format(TIMEDIFF(now(),BTESTAGNTSALRECESO),'%H:%i:%s'),'00:00:00') duracionreceso, btagenteOutTelefonoCliente Telefono,BTESTAGNTPERMISOID permisoid,BTESTAGNTMOTIVO permiso, 
+ifnull(date_format(TIMEDIFF(now(),BTESTAGNTSALRECESO),'%H:%i:%s'),'00:00:00') duracionreceso, btagenteOutTelefonoCliente Telefono,BTESTAGNTPERMISOID permisoid,
+
+CASE WHEN z.BTESTAGNTT='DIS' THEN '' ELSE BTESTAGNTMOTIVO END permiso, 
+
 DATE_FORMAT(now(), '%d/%m/%Y') fecha, 
 CASE WHEN btagenteoutStsExt = 'EN LLAMADA' THEN  TIMESTAMPDIFF(second,btagenteouthorallam,now()) 
 WHEN BTESTAGNTT = 'RES' THEN  TIMESTAMPDIFF(second,BTESTAGNTSALRECESO,now()) ELSE '0' END segundos,

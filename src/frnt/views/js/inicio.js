@@ -3700,23 +3700,26 @@ $(document).ready(function() {
 $(document).ready(function() {
     var table = $('#tableagentesoutb').DataTable();
 
+
+
+
     $('#tableagentesoutb tbody').on('click', 'tr', function() {
-        seleccionado_firstd = $(this).find("td:eq(0)").text();
-        seleccionado_idllam = $(this).find("td:eq(9)").text();
-        motivo_receso = $(this).find("td:eq(10)").text();
-        agenteSeleccionado = $(this).find("td:eq(12)").text();
-        marcadorSeleccionado = $(this).find("td:eq(13)").text();
-        $("#marcador").val($(this).find("td:eq(13)").text());
-        $("#motivoPermiso").val($(this).find("td:eq(10)").text());
-        $("#cliente").val($(this).find("td:eq(8)").text());
-        $("#telefono").val($(this).find("td:eq(7)").text());
-        $("#idllamada").val($(this).find("td:eq(9)").text());
-        document.getElementById("usrSel").value = $(this).find("td:eq(12)").text();
-        document.getElementById("extSel").value = $(this).find("td:eq(11)").text();
-        document.getElementById("nombreSel").value = $(this).find("td:eq(2)").text();
-        $("#usragente").val($(this).find("td:eq(12)").text());
-        $("#extusr").val($(this).find("td:eq(11)").text());
-        $("#agente").val($(this).find("td:eq(2)").text());
+       // seleccionado_firstd = $(this).find("td:eq(0)").text();
+        seleccionado_idllam = $(this).find("td:eq(7)").text();
+        motivo_receso = $(this).find("td:eq(8)").text();
+        agenteSeleccionado = $(this).find("td:eq(10)").text();
+        marcadorSeleccionado = $(this).find("td:eq(11)").text();
+        $("#marcador").val($(this).find("td:eq(11)").text());
+        $("#motivoPermiso").val($(this).find("td:eq(8)").text());
+        $("#cliente").val($(this).find("td:eq(6)").text());
+        $("#telefono").val($(this).find("td:eq(5)").text());
+        $("#idllamada").val($(this).find("td:eq(7)").text());
+        document.getElementById("usrSel").value = $(this).find("td:eq(10)").text();
+        document.getElementById("extSel").value = $(this).find("td:eq(9)").text();
+        document.getElementById("nombreSel").value = $(this).find("td:eq(1)").text();
+        $("#usragente").val($(this).find("td:eq(10)").text());
+        $("#extusr").val($(this).find("td:eq(9)").text());
+        $("#agente").val($(this).find("td:eq(1)").text());
         $(this).addClass('selected').siblings().removeClass('selected');
         const filterU = arr_multi.filter(function(element){
             return element.id == agenteSeleccionado;
