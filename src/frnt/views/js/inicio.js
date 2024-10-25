@@ -30,6 +30,7 @@ var bandera = 0;
 var cronoval = 0;
 var seleccionado_firstd;
 var agenteSeleccionado;
+var seleccionado_estatus;
 var canalSeleccionado;
 var marcadorSeleccionado;
 var cronometroi;
@@ -1327,14 +1328,21 @@ function consultarAgnt() {
 
 //botones de receso funcion al dar click
 function recesos(valor) {
+
+    
     var user_selec = $('#usrSel').val();
     if (user_selec == "") {
-        mostrarMensaje('', "Selecciona un agente");
+        mostrarMensajeModal('', "Selecciona un agente");
 
     } else {
-        ipcRenderer.send('getConsultarReceso', user_selec, valor, seleccionado_firstd)
-    }
-}
+        if((seleccionado_estatus == 'EN ATENCION')||(seleccionado_estatus == 'EN LLAMADA')){
+            mostrarMensajeModal('', "El agente ("+user_selec+") se encuentra "+seleccionado_estatus);
+            }else{
+                ipcRenderer.send('getConsultarReceso', user_selec, valor, seleccionado_firstd);
+            }
+        
+    } 
+} 
 
 
 ipcRenderer.on('getConsultarRecesoResult', (event, datos) => {
@@ -3722,6 +3730,7 @@ $(document).ready(function() {
 
     $('#tableagentesoutb tbody').on('click', 'tr', function() {
        // seleccionado_firstd = $(this).find("td:eq(0)").text();
+       seleccionado_estatus =  $(this).find("td:eq(2)").text();
         seleccionado_idllam = $(this).find("td:eq(7)").text();
         motivo_receso = $(this).find("td:eq(8)").text();
         agenteSeleccionado = $(this).find("td:eq(10)").text();
@@ -5407,7 +5416,6 @@ eventos_tableInformacionAgentes= function(tbody, table){
             motivo_receso="";
             agenteSeleccionado=data.agente;
             seleccionado_firstd="ME"; 
-            
             abrirSesionModal();
 
           /*  var dialog = bootbox.dialog({
