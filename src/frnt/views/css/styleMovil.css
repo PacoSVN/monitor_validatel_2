@@ -869,3 +869,11 @@
   width: 100%; 
   
 }
+
+.indicadorAzulFuerte{
+  background: rgb(0, 45, 248);
+    background: linear-gradient(180deg, rgb(0, 45, 248) 0%, rgb(0, 0, 0) 110%); 
+  margin: 0.2em; 
+  width: 100%; 
+  
+}

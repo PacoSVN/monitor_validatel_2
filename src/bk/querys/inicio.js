@@ -948,4 +948,17 @@ fecha >= curdate() AND fecha <= DATE_ADD(curdate(), INTERVAL 1 DAY)
 
 module.exports.enespera_= ` select count(*) llamadas
 FROM bstntrn.btcontacto con 
-where   btContactoCmpId like concat('%',?,'%')  and  btContactoSts = 'PENDIENTE' and cast(btcontactofecha as date) = curdate()`
+where   btContactoCmpId like concat('%',?,'%')  and  btContactoSts = 'PENDIENTE' and cast(btcontactofecha as date) = curdate()`;
+
+
+
+module.exports.atencion= `
+SELECT count(*) llamadas FROM bstntrn.btagenteoutbound
+WHERE  btagenteOutStsExt='EN ATENCION' 
+`;
+
+module.exports.atencion_= `
+select count(*) llamadas
+FROM bstntrn.btcontacto con 
+where   btContactoCmpId like concat('%',?,'%')  and  btContactoSts = 'EN ATENCION' and cast(btcontactofecha as date) = curdate()
+`;

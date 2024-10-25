@@ -1885,9 +1885,14 @@ function llenarGridOutb(datos) {
                 return "<div style='color:#fff'>" + row.sts + "</div>";
             } if (row.sts == "ENVIANDO RESPUESTA") {
                 return "<div style='color:#fff; '>" + row.sts + "</div>";
+            }else if (row.sts == "EN ATENCION") {
+                return "<div style='color:#fff'>" + row.sts + "</div>";
             } else {
                 return "NO DISPONIBLE";
             }
+
+
+            
 
             
         }
@@ -2003,6 +2008,12 @@ function llenarGridOutb(datos) {
                 $($(row).find("td")[0]).css("background-color", "#666667");
                 $($(row).find("td")[2]).css("background-color", "#666667");
             }
+
+            if (datos.sts == "EN ATENCION") {
+                $($(row).find("td")[0]).css("background-color", "#0066CC");
+                $($(row).find("td")[2]).css("background-color", "#0066CC");
+            }
+            
             // xxx  
             if (parseInt(datos.segundos) > tiempoEnLlamada) {
                 $($(row).find("td")[4]).css("background-color", "#ff0303");
@@ -5777,10 +5788,12 @@ function oculta(){
 ipcRenderer.on('getConsultarIndicadoresReferenciaResult', (event, datos) => {
     //$("#comboPerfil").html("");
     var indicadores = datos;
-    $("#agTotalEspera").text(indicadores.espera)
-    $("#agTotalConfirmada").text(indicadores.confirmadas)
-    $("#agTotalRechazadas").text(indicadores.rechazadas)
-    $("#agTotalReferencia").text(indicadores.total)
+    $("#agTotalEspera").text(indicadores.espera);
+    $("#agTotalConfirmada").text(indicadores.confirmadas);
+    $("#agTotalRechazadas").text(indicadores.rechazadas);
+    $("#agTotalReferencia").text(indicadores.total);
+    $("#agTotalAtencion").text(indicadores.atencion);
+    
     
     
     
