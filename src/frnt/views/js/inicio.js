@@ -1335,11 +1335,12 @@ function recesos(valor) {
         mostrarMensajeModal('', "Selecciona un agente");
 
     } else {
-        if((seleccionado_estatus == 'EN ATENCION')||(seleccionado_estatus == 'EN LLAMADA')){
-            mostrarMensajeModal('', "El agente ("+user_selec+") se encuentra "+seleccionado_estatus);
-            }else{
-                ipcRenderer.send('getConsultarReceso', user_selec, valor, seleccionado_firstd);
-            }
+        ipcRenderer.send('getConsultarReceso', user_selec, valor, seleccionado_firstd);
+       // if((seleccionado_estatus == 'EN ATENCION')||(seleccionado_estatus == 'EN LLAMADA')){
+       //     mostrarMensajeModal('', "El agente ("+user_selec+") se encuentra "+seleccionado_estatus);
+       //     }else{
+       //         ipcRenderer.send('getConsultarReceso', user_selec, valor, seleccionado_firstd);
+       //     }
         
     } 
 } 
