@@ -775,6 +775,7 @@ union
 SELECT 
 ifnull(marcador, '172.16.41.235') marcador, COUNT(*) total,
 ifnull((sum((SELECT COUNT(*) as act FROM bstntrn.btagenteoutbound as base WHERE base.btAgenteOutId = t3.id and t3.sts = 'DISPONIBLE')) +
+sum((SELECT COUNT(*) as act FROM bstntrn.btagenteoutbound as base WHERE base.btAgenteOutId = t3.id and t3.sts = 'EN ATENCION')) +
 sum((SELECT COUNT(*) as act FROM bstntrn.btagenteoutbound as base WHERE base.btAgenteOutId = t3.id and t3.sts = 'EN LLAMADA'))), 0) as operacion,
 ifnull(sum((SELECT COUNT(*) as act FROM bstntrn.btagenteoutbound as base WHERE base.btAgenteOutId = t3.id and t3.sts = 'EN LLAMADA')),0) as activos,
 ifnull(sum((SELECT COUNT(*) as act FROM bstntrn.btagenteoutbound as base WHERE base.btAgenteOutId = t3.id and t3.sts = 'DISPONIBLE')), 0) as disponibles,
@@ -803,7 +804,7 @@ LEFT JOIN bstntrn.btestagnt z ON aout.btAgenteOutId = z.BTESTAGNTUSR
 LEFT JOIN bstntrn.btcontacto C ON (C.btcontactoconsecutivo = aout.btAgenteOutClienteId and C.btcontactocmpid = aout.btagentecmpid) 
 WHERE aout.btAgenteOutSesion = 'S' and CNUSERBAJA='N' AND aout.btAgenteCmpId like concat('%',?,'%') AND (b.btsupervisoidn = ? or ? = '')
 AND btagenteOutStsExt like concat('%',?,'%') AND ifnull(BTESTAGNTT,'DIS') LIKE concat('%',?)
-and btAgenteOutId like concat('%',?,'%') and btAgenteOutNombre like concat('%',?,'%') AND ? = 1 AND btagenteoutboundactivo = 1 order by field(sts, 'EN LLAMADA', 'DISPONIBLE', 'RECESO', 'NO CONECTADO', 'NO DISPONIBLE'), duracion desc) as t3) TP`;
+and btAgenteOutId like concat('%',?,'%') and btAgenteOutNombre like concat('%',?,'%') AND ? = 1 AND btagenteoutboundactivo = 1 order by field(sts, 'EN ATENCION','EN LLAMADA', 'DISPONIBLE', 'RECESO', 'NO CONECTADO', 'NO DISPONIBLE'), duracion desc) as t3) TP`;
 
 module.exports.indicadoresDetalle = `
 SELECT *  FROM( 
