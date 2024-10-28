@@ -1950,6 +1950,7 @@ function llenarGridOutb(datos) {
             { "data": "ext" },
             { "data": "id" },
             { "data": "marcador" },
+            { "data": "supervisor" },
         ],
         "columnDefs": [
            // { "orderable": false, "targets": 0, "className": 'dt-body-center' },
@@ -1966,6 +1967,7 @@ function llenarGridOutb(datos) {
             { "orderable": false, "targets": 9, "className": 'dt-body-right' },
             { "orderable": false, "targets": 10, "className": 'dt-body-left' },
             { "orderable": false, "targets": 11, "className": 'dt-body-center' },
+            { "orderable": false, "targets": 12, "className": 'dt-body-center' },
         ],
 
         "language": {
