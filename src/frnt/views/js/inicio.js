@@ -1839,12 +1839,14 @@ function llenarGrid(datos) {
 
 function llenarGridOutb(datos) {
 
+
+
     var editFoto = function(datos, type, row) {
         if (type === 'display') {
             if (row.src == "") {
                 //return ' <img alt="Agente" src="" class="img-circle" width="40" height="40"></img>';
             } else {
-                return ' <img alt="Agente" src="data:image/bmp;base64,' + row.src + '" class="img-circle" width="40" height="40"></img>';
+                return ' <img alt="Agente" src="data:image/bmp;base64,' + row.src + '" class="img-circle" width="40" height="30"></img>';
             }
         }
         return this.datos;
@@ -1853,17 +1855,17 @@ function llenarGridOutb(datos) {
     var Estatus = function(datos, type, row) {
         if (type === 'display') {
             if (row.stsrec == "SOL") {
-                return "<i class='icon-user-plus' style='color:#fff; font-size: 30px;'></i>";
+                return "<i class='icon-user-plus' style='color:#fff;'></i>";
             } else if (row.stsrec == "SOLAUT") {
-                return "<i class='icon-smile' style='color:#fff; font-size: 30px;'></i>";
+                return "<i class='icon-smile' style='color:#fff;'></i>";
             } else if (row.stsrec == "RES") {
-                return "<i class='icon-clock' style='color:#fff; font-size: 30px;'></i>";
+                return "<i class='icon-clock' style='color:#fff;'></i>";
             }else if (datos == "ENVIANDO RESPUESTA") {
-                return "<i class='icon-notification' style='color:#fff; background-color:#666666; font-size: 30px;'></i>";
+                return "<i class='icon-notification' style='color:#fff; background-color:#666666;'></i>";
             }else if (datos == "DISPONIBLE" || "DIS") {
-                return "<i class='icon-user-check' style='color:#fff; font-size: 30px;'></i>";
+                return "<i class='icon-user-check' style='color:#fff;'></i>";
             } else if (datos == "EN LLAMADA") {
-                return "<i class='icon-phone' style='color:#fff; font-size: 30px;'></i>";
+                return "<i class='icon-phone' style='color:#fff;'></i>";
             }else {
                 return "NO DISPONIBLE";
             }
@@ -1955,7 +1957,7 @@ function llenarGridOutb(datos) {
         "columnDefs": [
            // { "orderable": false, "targets": 0, "className": 'dt-body-center' },
             { "orderable": false, "targets": 0, "className": 'dt-body-center' },
-            { "orderable": false, "targets": 1, "className": 'dt-body-left', "width": "250px" },
+            { "orderable": false, "targets": 1, "className": 'dt-body-left', "width": "200px" },
             { "orderable": false, "targets": 2, "className": 'dt-body-center' },
            // { "orderable": false, "targets": 3, "className": 'dt-body-center' },
             { "orderable": false, "targets": 3, "className": 'dt-body-center' },
