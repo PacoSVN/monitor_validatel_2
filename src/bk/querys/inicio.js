@@ -26,10 +26,11 @@ ifnull(date_format(TIMEDIFF(now(),BTESTAGNTSALRECESO),'%H:%i:%s'),'00:00:00') du
 CASE WHEN z.BTESTAGNTT='DIS' THEN '' ELSE BTESTAGNTMOTIVO END permiso, 
 
 DATE_FORMAT(now(), '%d/%m/%Y') fecha, 
-CASE WHEN btagenteoutStsExt = 'EN LLAMADA' THEN  TIMESTAMPDIFF(second,btagenteouthorallam,now()) 
+CASE WHEN btagenteoutStsExt = 'EN LLAMADA' THEN  TIMESTAMPDIFF(second,btagenteouthorallam,now())
+WHEN btagenteoutStsExt = 'EN ATENCION' THEN  TIMESTAMPDIFF(second,btagenteoutboundhoraasigna,now()) 
 WHEN BTESTAGNTT = 'RES' THEN  TIMESTAMPDIFF(second,BTESTAGNTSALRECESO,now()) ELSE '0' END segundos,
 
-CASE WHEN btagenteoutStsExt = 'EN LLAMADA' THEN  ifnull(SEC_TO_TIME(TIMESTAMPDIFF(second,btagenteouthorallam,now())), '00:00:00') 
+CASE WHEN btagenteoutStsExt = 'EN LLAMADA' THEN  ifnull(SEC_TO_TIME(TIMESTAMPDIFF(second,btagenteouthorallam,now())), '00:00:00') WHEN btagenteoutStsExt = 'EN ATENCION' THEN  ifnull(SEC_TO_TIME(TIMESTAMPDIFF(second,btagenteoutboundhoraasigna,now())), '00:00:00') 
 WHEN BTESTAGNTT = 'RES' THEN  ifnull(SEC_TO_TIME(TIMESTAMPDIFF(second,BTESTAGNTSALRECESO,now())), '00:00:00') ELSE '00:00:00' END duracion, 
 CASE WHEN btagenteoutStsExt = 'EN LLAMADA' THEN DATE_FORMAT(btagenteouthorallam, '%H:%i:%s') 
 WHEN BTESTAGNTT = 'RES' THEN DATE_FORMAT(BTESTAGNTSALRECESO, '%H:%i:%s') ELSE '00:00:00' END hora, 
@@ -382,7 +383,8 @@ module.exports.consultarAgentesCb = " SELECT 'CB' area, btAgenteOutId id,btAgent
     " ifnull(z.BTESTAGNTT, 'DIS') stsrec, " +
     " ifnull(date_format(TIMEDIFF(now(),BTESTAGNTSALRECESO),'%H:%i:%s'),'00:00:00') duracionreceso, btagenteOutTelefonoCliente Telefono,BTESTAGNTPERMISOID permisoid,BTESTAGNTPERMISO permiso, " +
     " DATE_FORMAT(now(), '%d/%m/%Y') fecha, CASE WHEN btagenteoutStsExt = 'EN LLAMADA' THEN DATE_FORMAT(btagenteouthorallam, '%H:%i:%s') ELSE '00:00:00' END hora, " +
-    " CASE WHEN btagenteoutStsExt = 'EN LLAMADA' THEN  ifnull(SEC_TO_TIME(TIMESTAMPDIFF(second,btagenteouthorallam,now())), '00:00:00') ELSE '00:00:00' END duracion," +
+    " CASE WHEN btagenteoutStsExt = 'EN LLAMADA' THEN  ifnull(SEC_TO_TIME(TIMESTAMPDIFF(second,btagenteouthorallam,now())), '00:00:00') ELSE CASE WHEN btagenteoutStsExt = 'EN ATENCION' THEN  ifnull(SEC_TO_TIME(TIMESTAMPDIFF(second,btagenteoutboundhoraasigna,now())), '00:00:00') ELSE '00:00:00' "+ 
+    " END duracion," +
     " CASE WHEN btagenteoutStsExt = 'EN LLAMADA' THEN ifnull(C.btContactoNombreCliente,'') else '' END nombreCliente," +
     " CASE WHEN btagenteoutStsExt = 'EN LLAMADA' THEN ifnull(z.BTESTAGNTCALLID,'') else '' END idllamada " +
     " FROM siogen01.cnuser a " +

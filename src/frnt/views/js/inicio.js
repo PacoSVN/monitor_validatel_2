@@ -415,7 +415,7 @@ ipcRenderer.on('getConsultarAgenteOResult', (event, datos) => {
         arr_outb.push(datos.out[b])
         arr_multi.push(datos.out[b])
         //sacamos informacion para pintar en los indicadores
-        if (datos.out[b].sts === "EN LLAMADA") {
+        if (datos.out[b].sts === "EN LLAMADA" || datos.out[b].sts === "EN ATENCION") {
             var durllam = parseInt(datos.out[b].segundos);
             if (durllam >= parseInt(tiempoEnLlamada)) {
                 contador++;
